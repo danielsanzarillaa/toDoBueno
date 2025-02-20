@@ -1,0 +1,316 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API de ToDo App",
+    "description": "API para gestionar tareas de la aplicación ToDo",
+    "version": "1.0.0"
+  },
+  "paths": {
+    "/api/tasks": {
+      "get": {
+        "summary": "Obtener todas las tareas",
+        "responses": {
+          "200": {
+            "description": "Lista de tareas obtenida correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "id": {
+                        "type": "string",
+                        "description": "Identificador único de la tarea"
+                      },
+                      "title": {
+                        "type": "string",
+                        "description": "Título de la tarea"
+                      },
+                      "description": {
+                        "type": "string",
+                        "description": "Descripción de la tarea"
+                      },
+                      "isCompleted": {
+                        "type": "boolean",
+                        "description": "Estado de completado de la tarea"
+                      },
+                      "createdAt": {
+                        "type": "string",
+                        "format": "date-time",
+                        "description": "Fecha de creación de la tarea"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "summary": "Crear una nueva tarea",
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Título de la tarea"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Descripción de la tarea"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tarea creada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Identificador único de la tarea"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Título de la tarea"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Descripción de la tarea"
+                    },
+                    "isCompleted": {
+                      "type": "boolean",
+                      "description": "Estado de completado de la tarea"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Fecha de creación de la tarea"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}": {
+      "put": {
+        "summary": "Actualizar una tarea existente",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "required": [
+                  "title"
+                ],
+                "properties": {
+                  "title": {
+                    "type": "string",
+                    "description": "Título de la tarea"
+                  },
+                  "description": {
+                    "type": "string",
+                    "description": "Descripción de la tarea"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tarea actualizada correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Identificador único de la tarea"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Título de la tarea"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Descripción de la tarea"
+                    },
+                    "isCompleted": {
+                      "type": "boolean",
+                      "description": "Estado de completado de la tarea"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Fecha de creación de la tarea"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "summary": "Eliminar una tarea",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarea eliminada correctamente"
+          }
+        }
+      }
+    },
+    "/api/tasks/{taskId}/complete": {
+      "patch": {
+        "summary": "Marcar tarea como completada/no completada",
+        "parameters": [
+          {
+            "name": "taskId",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "isCompleted": {
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Estado de tarea actualizado correctamente",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "id": {
+                      "type": "string",
+                      "description": "Identificador único de la tarea"
+                    },
+                    "title": {
+                      "type": "string",
+                      "description": "Título de la tarea"
+                    },
+                    "description": {
+                      "type": "string",
+                      "description": "Descripción de la tarea"
+                    },
+                    "isCompleted": {
+                      "type": "boolean",
+                      "description": "Estado de completado de la tarea"
+                    },
+                    "createdAt": {
+                      "type": "string",
+                      "format": "date-time",
+                      "description": "Fecha de creación de la tarea"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "Task": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "Identificador único de la tarea"
+          },
+          "title": {
+            "type": "string",
+            "description": "Título de la tarea"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripción de la tarea"
+          },
+          "isCompleted": {
+            "type": "boolean",
+            "description": "Estado de completado de la tarea"
+          },
+          "createdAt": {
+            "type": "string",
+            "format": "date-time",
+            "description": "Fecha de creación de la tarea"
+          }
+        }
+      },
+      "TaskInput": {
+        "type": "object",
+        "required": [
+          "title"
+        ],
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Título de la tarea"
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripción de la tarea"
+          }
+        }
+      }
+    }
+  }
+}
